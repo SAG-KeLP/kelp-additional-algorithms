@@ -12,7 +12,7 @@ This project contains several learning algorithms extending the set of algorithm
 
 In Batch Learning, the complete training dataset is supposed to be entirely available during the learning phase. In Online Learning individual examples are exploited one at a time to incrementally acquire the model. 
 
-For examples about the usage of the following algorithms, please refer to the project **kelp-full**.
+Examples about the usage of the following algorithms, please refer to the project **kelp-full**.
 
 Batch Learning algorithms
 -------------------------
@@ -53,6 +53,65 @@ The following online learning algorithms are implemented:
 * **MultiEpochLearning**: a meta algorithm for performing multiple iterations on a training data
 * **Stoptron**: an extension of the Stoptron algorithm proposed in (Orabona '08)
   
+=============
+
+##Including KeLP in your project
+
+If you want to include this set of learning algorithms, you can  easily include it in your [Maven][maven-site] project adding the following repositories to your pom file:
+
+```
+<repositories>
+	<repository>
+			<id>kelp_repo_snap</id>
+			<name>KeLP Snapshots repository</name>
+			<releases>
+				<enabled>false</enabled>
+				<updatePolicy>always</updatePolicy>
+				<checksumPolicy>warn</checksumPolicy>
+			</releases>
+			<snapshots>
+				<enabled>true</enabled>
+				<updatePolicy>always</updatePolicy>
+				<checksumPolicy>fail</checksumPolicy>
+			</snapshots>
+			<url>http://sag.art.uniroma2.it:8081/artifactory/kelp-snapshot/</url>
+		</repository>
+		<repository>
+			<id>kelp_repo_release</id>
+			<name>KeLP Stable repository</name>
+			<releases>
+				<enabled>true</enabled>
+				<updatePolicy>always</updatePolicy>
+				<checksumPolicy>warn</checksumPolicy>
+			</releases>
+			<snapshots>
+				<enabled>false</enabled>
+				<updatePolicy>always</updatePolicy>
+				<checksumPolicy>fail</checksumPolicy>
+			</snapshots>
+			<url>http://sag.art.uniroma2.it:8081/artifactory/kelp-release/</url>
+		</repository>
+	</repositories>
+```
+
+Then, the [Maven][maven-site] dependency for the whole **KeLP** package:
+
+```
+<dependency>
+    <groupId>it.uniroma2.sag.kelp</groupId>
+    <artifactId>kelp-additional-algorithms</artifactId>
+    <version>2.0.0</version>
+</dependency>
+```
+
+Alternatively, thanks to the modularity of **KeLP**, you can include one of the following modules:
+
+* [kelp-core](https://github.com/SAG-KeLP/kelp-core): it contains the core interfaces and classes for algorithms, kernels and representations. It contains also the base set of classifiers, regressors and clustering algorithms. It serves as the main module to develop new kernel functions or new algorithms;
+
+* [kelp-additional-kernels](https://github.com/SAG-KeLP/kelp-additional-kernels): it contains additional kernel functions, such as the Tree Kernels or the Graph Kernels;
+
+* [kelp-full](https://github.com/SAG-KeLP/kelp-full): it is a complete package of KeLP that contains the entire set of existing modules, i.e. additional  kernel functions and algorithms.
+
 
 =============
 
@@ -90,7 +149,9 @@ Usefull Links
 
 KeLP site: [http://sag.art.uniroma2.it/demo-software/kelp/][kelp-site]
 
-SAG site: [http://sag.art.uniroma2.it] [kelp-site]
+SAG site: [http://sag.art.uniroma2.it][sag-site]
+
+Source code hosted at GitHub: [https://github.com/SAG-KeLP][github]
 
 [sag-site]: http://sag.art.uniroma2.it "SAG site"
 [uniroma2-site]: http://www.uniroma2.it "University of Roma Tor Vergata"
@@ -98,3 +159,5 @@ SAG site: [http://sag.art.uniroma2.it] [kelp-site]
 [liblinear-site]: http://www.csie.ntu.edu.tw/~cjlin/liblinear
 [porting-site]: http://liblinear.bwaldvogel.de
 [libsvm-site]: http://www.csie.ntu.edu.tw/~cjlin/libsvm/
+[github]: https://github.com/SAG-KeLP
+[maven-site]: http://maven.apache.org "Apache Maven"
