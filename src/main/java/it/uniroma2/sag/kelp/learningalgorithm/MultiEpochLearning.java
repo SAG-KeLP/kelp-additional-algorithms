@@ -47,6 +47,11 @@ public class MultiEpochLearning implements MetaLearningAlgorithm{
 		this.setLabels(labels);
 	}
 	
+	public MultiEpochLearning(int epochs, LearningAlgorithm baseAlgorithm){
+		this.setEpochs(epochs);
+		this.setBaseAlgorithm(baseAlgorithm);
+	}
+	
 	@Override
 	public void setBaseAlgorithm(LearningAlgorithm baseAlgorithm) {
 		this.baseAlgorithm=baseAlgorithm;		
