@@ -42,6 +42,7 @@ The following online learning algorithms are implemented:
 * **KernelizedPerceptron**: kernel-based version of the Perceptron learning algorithm for classification (Rosenblatt '57)
 * **RandomizedBudgetPerceptron**: an extension of the Randomized Budget Perceptron proposed in (Cavallanti '06)
 * **BudgetedPassiveAggressiveClassification**: budgeted learning algorithm proposed in (Wang '10)
+* **SoftConfidenceWeightedClassification**: an online linear learning algorithms proposed in (Wang '12)
 
 **REGRESSION ALGORITHMS:**
 
@@ -141,6 +142,9 @@ References
 
 
 (Filice '15) Simone Filice, Giuseppe Castellucci, Danilo Croce, Roberto Basili: _Kelp: a kernel-based learning platform for natural language processing_. In: Proceedings of ACL: System Demonstrations. Beijing, China (July 2015)
+
+
+(Want '12) Wang, J., Zhao, P., Hoi, S.C.: Exact soft confidence-weighted learning. In: Proceedings of the ICML 2012. ACM, New York, NY, USA (2012)
 
 ============
 
