@@ -51,15 +51,14 @@ import com.fasterxml.jackson.databind.SerializationFeature;
  * This class implements the Nystrom Method to approximate the implicit space
  * underlying a Kernel Function, thus producing a low-dimensional dense
  * representation. <br>
- * As an example, given a Dataset of examples represented through tree
- * structures and a tree kernel function, this class allows deriving a
+ * As an example, given a <code>Dataset</code> of examples represented through
+ * tree structures and a tree kernel function, this class allows deriving a
  * linearized dataset at a given dimensionality. <br>
  * <br>
  * If you use this class, <b>please cite</b>: <br>
- * <li>
- * Danilo Croce and Roberto Basili. Large-scale Kernel-based Language Learning
- * through the Ensemble Nystrom methods. In Proceedings of ECIR 2016. Padova,
- * Italy, 2016 <br>
+ * <li>Danilo Croce and Roberto Basili. Large-scale Kernel-based Language
+ * Learning through the Ensemble Nystrom methods. In Proceedings of ECIR 2016.
+ * Padova, Italy, 2016 <br>
  * 
  * @author Danilo Croce
  */
@@ -79,17 +78,14 @@ public class NystromMethod implements LinearizationFunction {
 	 * @throws FileNotFoundException
 	 * @throws IOException
 	 */
-	public static NystromMethod load(String inputFilePath)
-			throws FileNotFoundException, IOException {
+	public static NystromMethod load(String inputFilePath) throws FileNotFoundException, IOException {
 		ObjectMapper mapper = new ObjectMapper();
 
 		if (inputFilePath.endsWith(".gz")) {
-			GZIPInputStream zip = new GZIPInputStream(new FileInputStream(
-					new File(inputFilePath)));
+			GZIPInputStream zip = new GZIPInputStream(new FileInputStream(new File(inputFilePath)));
 			return mapper.readValue(zip, NystromMethod.class);
 		} else {
-			return mapper.readValue(new File(inputFilePath),
-					NystromMethod.class);
+			return mapper.readValue(new File(inputFilePath), NystromMethod.class);
 		}
 	}
 
@@ -139,8 +135,7 @@ public class NystromMethod implements LinearizationFunction {
 	 *            The kernel function
 	 * @throws InstantiationException
 	 */
-	public NystromMethod(List<Example> landmarks, Kernel kernel)
-			throws InstantiationException {
+	public NystromMethod(List<Example> landmarks, Kernel kernel) throws InstantiationException {
 		this(landmarks, kernel, landmarks.size());
 	}
 
@@ -152,8 +147,7 @@ public class NystromMethod implements LinearizationFunction {
 	 * @param expectedRank
 	 * @throws InstantiationException
 	 */
-	public NystromMethod(List<Example> landmarks, Kernel kernel,
-			int expectedRank) throws InstantiationException {
+	public NystromMethod(List<Example> landmarks, Kernel kernel, int expectedRank) throws InstantiationException {
 
 		this.kernel = kernel;
 
@@ -164,9 +158,7 @@ public class NystromMethod implements LinearizationFunction {
 		this.rank = expectedRank;
 
 		if (expectedRank > m) {
-			debug("Expected Rank (" + expectedRank
-					+ ") and it is higher than m (" + m
-					+ "). It will be reduced to m.");
+			debug("Expected Rank (" + expectedRank + ") and it is higher than m (" + m + "). It will be reduced to m.");
 			this.rank = m;
 		}
 
@@ -188,8 +180,7 @@ public class NystromMethod implements LinearizationFunction {
 			if ((i + 1) % 100 == 0)
 				info("Evaluated " + (i + 1) + " landmarks.");
 			for (int j = i; j < m; j++) {
-				float k = this.kernel.innerProduct(landmarks.get(i),
-						landmarks.get(j));
+				float k = this.kernel.innerProduct(landmarks.get(i), landmarks.get(j));
 				W.set(i, j, k);
 				W.set(j, i, k);
 				if (i == j)
@@ -199,8 +190,8 @@ public class NystromMethod implements LinearizationFunction {
 		debug("W\n" + W);
 
 		info("SVD Decomposition...");
-		SingularValueDecomposition<DenseMatrix64F> svd = DecompositionFactory
-				.svd(W.getNumRows(), W.getNumRows(), true, true, false);
+		SingularValueDecomposition<DenseMatrix64F> svd = DecompositionFactory.svd(W.getNumRows(), W.getNumRows(), true,
+				true, false);
 
 		info("Decompostion completed");
 
@@ -320,8 +311,7 @@ public class NystromMethod implements LinearizationFunction {
 	 *            The name of the linear representation inside the new examples
 	 * @return
 	 */
-	public SimpleDataset getLinearizedDataset(Dataset dataset,
-			String representationName) {
+	public SimpleDataset getLinearizedDataset(Dataset dataset, String representationName) {
 
 		SimpleDataset resDataset = new SimpleDataset();
 
@@ -348,8 +338,7 @@ public class NystromMethod implements LinearizationFunction {
 	 *            The name of the linear representation inside the new example
 	 * @return
 	 */
-	public Example getLinearizedExample(Example example,
-			String representationName) {
+	public Example getLinearizedExample(Example example, String representationName) {
 		double[] projectedVector = calculateVector(example);
 		DenseVector denseVector = new DenseVector(projectedVector);
 
@@ -395,14 +384,12 @@ public class NystromMethod implements LinearizationFunction {
 	 * @throws FileNotFoundException
 	 * @throws IOException
 	 */
-	public void save(String outputFilePath) throws FileNotFoundException,
-			IOException {
+	public void save(String outputFilePath) throws FileNotFoundException, IOException {
 		ObjectMapper mapper = new ObjectMapper();
 		mapper.enable(SerializationFeature.INDENT_OUTPUT);
 
 		if (outputFilePath.endsWith(".gz")) {
-			GZIPOutputStream zip = new GZIPOutputStream(new FileOutputStream(
-					new File(outputFilePath)));
+			GZIPOutputStream zip = new GZIPOutputStream(new FileOutputStream(new File(outputFilePath)));
 			mapper.writeValue(zip, this);
 		} else {
 			mapper.writeValue(new File(outputFilePath), this);

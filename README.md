@@ -12,6 +12,8 @@ This project contains several learning algorithms extending the set of algorithm
 
 In Batch Learning, the complete training dataset is supposed to be entirely available during the learning phase. In Online Learning individual examples are exploited one at a time to incrementally acquire the model. 
 
+Moreover this project defines **LinearizationFunction** that can be used to approximate kernel spaces so projecting (potentially structured) examples into linear representations, i.e. vectors.
+
 Examples about the usage of the following algorithms, please refer to the project **kelp-full**.
 
 Batch Learning algorithms
@@ -53,6 +55,13 @@ The following online learning algorithms are implemented:
 
 * **MultiEpochLearning**: a meta algorithm for performing multiple iterations on a training data
 * **Stoptron**: an extension of the Stoptron algorithm proposed in (Orabona '08)
+
+LinearizationFunctions
+--------------------------
+The following linearization functions have been implemented:
+
+* **NystromMethod**: a linearization function based on the Nystrom Method (Williams '01) on the notion of approximation of the Gram Matrix underlying a kernel function. The application of the Nystrom method (Croce '16).
+
   
 =============
 
@@ -140,6 +149,7 @@ References
 
 (Rosenblatt '57) F. Rosenblatt. _The Perceptron - a perceiving and recognizing automaton_. Report 85-460-1, Cornell Aeronautical Laboratory (1957)
 
+(Williams '01) Williams, C.K.I., Seeger, M.: _Using the nystrom method to speed up kernel machines_. In: Proceedings of NIPS 2000 (2001)
 
 (Crammer '06) K. Crammer, O. Dekel, J. Keshet, S. Shalev-Shwartz and Y. Singer. _Online Passive-Aggressive Algorithms_. Journal of Machine Learning Research (2006)
 
@@ -162,6 +172,9 @@ References
 
 (Filice '15) Simone Filice, Giuseppe Castellucci, Danilo Croce, Roberto Basili: _Kelp: a kernel-based learning platform for natural language processing_. In: Proceedings of ACL: System Demonstrations. Beijing, China (July 2015)
 
+(Croce '16) Danilo Croce and Roberto Basili. _Large-scale Kernel-based Language
+  Learning through the Ensemble Nystrom methods_. In Proceedings of ECIR 2016.
+  Padova, Italy, 2016
 
 (Want '12) Wang, J., Zhao, P., Hoi, S.C.: Exact soft confidence-weighted learning. In: Proceedings of the ICML 2012. ACM, New York, NY, USA (2012)
 
