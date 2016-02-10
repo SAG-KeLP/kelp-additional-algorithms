@@ -129,6 +129,9 @@ public class NystromMethod implements LinearizationFunction {
 	}
 
 	/**
+	 * Constructor of NystromMethod. The expected rank is automatically set to the size of 
+	 * <code>landmarks</code> 
+	 * 
 	 * @param landmarks
 	 *            The set of examples used as landmarks
 	 * @param kernel
@@ -247,7 +250,7 @@ public class NystromMethod implements LinearizationFunction {
 	}
 
 	/**
-	 * It derives an array of double containing the linearized representation
+	 * It derives an array of doubles containing the linearized representation
 	 * 
 	 * @param example
 	 *            the input example
@@ -301,9 +304,9 @@ public class NystromMethod implements LinearizationFunction {
 	}
 
 	/**
-	 * This method allows linearizing an entire dataset, containing examples
-	 * with only a representation with a specific name, provided as input. This
-	 * examples inherits the classes of the input example.
+	 * This method linearizes all the examples in the input <code>dataset</code>,
+	 * generating a corresponding linearized dataset. The produced 
+	 * examples inherit the labels of the corresponding input examples.
 	 * 
 	 * @param dataset
 	 *            The input dataset
@@ -328,9 +331,9 @@ public class NystromMethod implements LinearizationFunction {
 	}
 
 	/**
-	 * This method allows linearizing an example, providing a new example
+	 * This method linearizes an input example, providing a new example
 	 * containing only a representation with a specific name, provided as input.
-	 * This object inherits the classes of the input example.
+	 * The produced example inherits the labels of the input example.
 	 * 
 	 * @param example
 	 *            The input example.

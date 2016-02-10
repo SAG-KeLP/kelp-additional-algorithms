@@ -15,24 +15,22 @@
 
 package it.uniroma2.sag.kelp.linearization.nystrom;
 
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializationFeature;
+
 import it.uniroma2.sag.kelp.data.example.Example;
 import it.uniroma2.sag.kelp.data.example.SimpleExample;
 import it.uniroma2.sag.kelp.data.representation.Representation;
 import it.uniroma2.sag.kelp.data.representation.vector.DenseVector;
-
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.zip.GZIPInputStream;
-import java.util.zip.GZIPOutputStream;
-
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.SerializationFeature;
+import it.uniroma2.sag.kelp.utils.FileUtils;
 
 /**
  * This class implements the Ensemble Nystrom Method to approximate the implicit
@@ -67,13 +65,8 @@ public class NystromMethodEnsemble extends ArrayList<NystromMethod> {
 	 */
 	public static NystromMethodEnsemble load(String inputFilePath) throws FileNotFoundException, IOException {
 		ObjectMapper mapper = new ObjectMapper();
-
-		if (inputFilePath.endsWith(".gz")) {
-			GZIPInputStream zip = new GZIPInputStream(new FileInputStream(new File(inputFilePath)));
-			return mapper.readValue(zip, NystromMethodEnsemble.class);
-		} else {
-			return mapper.readValue(new File(inputFilePath), NystromMethodEnsemble.class);
-		}
+		InputStream inputStream = FileUtils.createInputStream(inputFilePath);
+		return mapper.readValue(inputStream, NystromMethodEnsemble.class);
 	}
 
 	/**
@@ -88,19 +81,14 @@ public class NystromMethodEnsemble extends ArrayList<NystromMethod> {
 		ObjectMapper mapper = new ObjectMapper();
 		mapper.enable(SerializationFeature.INDENT_OUTPUT);
 
-		if (outputFilePath.endsWith(".gz")) {
-			GZIPOutputStream zip = new GZIPOutputStream(new FileOutputStream(new File(outputFilePath)));
-			mapper.writeValue(zip, this);
-		} else {
-			mapper.writeValue(new File(outputFilePath), this);
-		}
-
+		OutputStream outputStream = FileUtils.createOutputStream(outputFilePath);
+		mapper.writeValue(outputStream, this);
 	}
 
 	/**
-	 * Given an example, this method allows to derived a new <code>Example
+	 * Given an example, this method produces a new <code>Example
 	 * <code> containing a single representation, i.e. a dense vector that is
-	 * the concatenation of single vectors obtained by each projection
+	 * the concatenation of the vectors obtained by each projection
 	 * function used in the Ensemble. The <code>label</code>s are copied from
 	 * the input example.
 	 * 
@@ -109,7 +97,7 @@ public class NystromMethodEnsemble extends ArrayList<NystromMethod> {
 	 * @param newRepresentationName
 	 *            the identifier of the new dense vector
 	 * @return a new <code>Example <code> containing a single representation,
-	 *         i.e. a dense vector that is the concatenation of single vectors
+	 *         i.e. a dense vector that is the concatenation of the vectors
 	 *         obtained by each projection function used in the Ensemble
 	 * @throws InstantiationException
 	 */
@@ -132,13 +120,13 @@ public class NystromMethodEnsemble extends ArrayList<NystromMethod> {
 	}
 
 	/**
-	 * Given an example, this method allows to derived a
-	 * <code>DenseVector</code> that is the concatenation of single vectors
+	 * Given an example, this method produces a
+	 * <code>DenseVector</code> that is the concatenation of the vectors
 	 * obtained by each projection functions used in the Ensemble.
 	 * 
 	 * @param example
 	 *            the input example
-	 * @return the concatenation of single vectors obtained by each projection
+	 * @return the concatenation of the vectors obtained by each projection
 	 *         functions used in the Ensemble.
 	 * @throws InstantiationException
 	 */
@@ -155,8 +143,8 @@ public class NystromMethodEnsemble extends ArrayList<NystromMethod> {
 	}
 
 	/**
-	 * Given an example, this method allows to derived a
-	 * <code>DenseVector</code> that is the concatenation of single vectors
+	 * Given an example, this method produces a
+	 * <code>DenseVector</code> that is the concatenation of the vectors
 	 * obtained by each projection functions used in the Ensemble. Each vector
 	 * used in the concatenation is multiplied by a corresponding weight
 	 * 
@@ -192,7 +180,7 @@ public class NystromMethodEnsemble extends ArrayList<NystromMethod> {
 	}
 
 	/**
-	 * @return The ranks of the spaces (a rank fro rach projection function)
+	 * @return The ranks of the spaces (a rank for each projection function)
 	 *         representing the linearized examples
 	 */
 	public float[] getRanks() {
