@@ -15,20 +15,13 @@
 
 package it.uniroma2.sag.kelp.linearization.nystrom;
 
-import it.uniroma2.sag.kelp.data.dataset.Dataset;
-import it.uniroma2.sag.kelp.data.dataset.SimpleDataset;
-import it.uniroma2.sag.kelp.data.example.Example;
-import it.uniroma2.sag.kelp.data.example.SimpleExample;
-import it.uniroma2.sag.kelp.data.representation.Representation;
-import it.uniroma2.sag.kelp.data.representation.vector.DenseVector;
-import it.uniroma2.sag.kelp.kernel.Kernel;
-import it.uniroma2.sag.kelp.linearization.LinearizationFunction;
-
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -46,6 +39,16 @@ import org.slf4j.LoggerFactory;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
+
+import it.uniroma2.sag.kelp.data.dataset.Dataset;
+import it.uniroma2.sag.kelp.data.dataset.SimpleDataset;
+import it.uniroma2.sag.kelp.data.example.Example;
+import it.uniroma2.sag.kelp.data.example.SimpleExample;
+import it.uniroma2.sag.kelp.data.representation.Representation;
+import it.uniroma2.sag.kelp.data.representation.vector.DenseVector;
+import it.uniroma2.sag.kelp.kernel.Kernel;
+import it.uniroma2.sag.kelp.linearization.LinearizationFunction;
+import it.uniroma2.sag.kelp.utils.FileUtils;
 
 /**
  * This class implements the Nystrom Method to approximate the implicit space
@@ -80,13 +83,10 @@ public class NystromMethod implements LinearizationFunction {
 	 */
 	public static NystromMethod load(String inputFilePath) throws FileNotFoundException, IOException {
 		ObjectMapper mapper = new ObjectMapper();
-
-		if (inputFilePath.endsWith(".gz")) {
-			GZIPInputStream zip = new GZIPInputStream(new FileInputStream(new File(inputFilePath)));
-			return mapper.readValue(zip, NystromMethod.class);
-		} else {
-			return mapper.readValue(new File(inputFilePath), NystromMethod.class);
-		}
+		InputStreamReader inS = new InputStreamReader(FileUtils.createInputStream(inputFilePath), "utf8");
+		NystromMethod readValue = mapper.readValue(inS, NystromMethod.class);
+		inS.close();
+		return readValue;
 	}
 
 	/**
@@ -391,12 +391,9 @@ public class NystromMethod implements LinearizationFunction {
 		ObjectMapper mapper = new ObjectMapper();
 		mapper.enable(SerializationFeature.INDENT_OUTPUT);
 
-		if (outputFilePath.endsWith(".gz")) {
-			GZIPOutputStream zip = new GZIPOutputStream(new FileOutputStream(new File(outputFilePath)));
-			mapper.writeValue(zip, this);
-		} else {
-			mapper.writeValue(new File(outputFilePath), this);
-		}
+		OutputStreamWriter out = new OutputStreamWriter(FileUtils.createOutputStream(outputFilePath), "utf8");
+		mapper.writeValue(out, kernel);
+		out.close();
 	}
 
 	/**
