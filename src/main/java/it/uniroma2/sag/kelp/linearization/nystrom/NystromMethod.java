@@ -32,6 +32,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
 
@@ -60,6 +61,7 @@ import it.uniroma2.sag.kelp.utils.FileUtils;
  * 
  * @author Danilo Croce
  */
+@JsonTypeName("nystrom")
 public class NystromMethod implements LinearizationFunction {
 
 	private Logger logger = LoggerFactory.getLogger(NystromMethod.class);
@@ -143,6 +145,8 @@ public class NystromMethod implements LinearizationFunction {
 	 * @param kernel
 	 *            The kernel function
 	 * @param expectedRank
+	 *            The expected rank of the space representing the linearized
+	 *            examples
 	 * @throws InstantiationException
 	 */
 	public NystromMethod(List<Example> landmarks, Kernel kernel, int expectedRank) throws InstantiationException {
@@ -374,7 +378,7 @@ public class NystromMethod implements LinearizationFunction {
 	}
 
 	/**
-	 * Load a Nystrom-based projection function in a file. If the .gz suffix is
+	 * Save a Nystrom-based projection function in a file. If the .gz suffix is
 	 * used a compressed file is obtained
 	 * 
 	 * @param outputFilePath
@@ -387,7 +391,7 @@ public class NystromMethod implements LinearizationFunction {
 		mapper.enable(SerializationFeature.INDENT_OUTPUT);
 
 		OutputStreamWriter out = new OutputStreamWriter(FileUtils.createOutputStream(outputFilePath), "utf8");
-		mapper.writeValue(out, kernel);
+		mapper.writeValue(out, this);
 		out.close();
 	}
 
