@@ -29,7 +29,6 @@ The following batch learning algorithms are implemented:
 
 **REGRESSION ALGORITHMS:**
 
-* **EpsilonSvmRegression**: It implements the  &epsilon;-SVR learning algorithm discussed in (Chang '11).
 * **LibLinearRegression**: It implements the linear regression learning algorithm descrived in (Fan '08).
   
 Online Learning Algorithms
