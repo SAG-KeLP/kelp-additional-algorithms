@@ -32,6 +32,8 @@ import org.ejml.alg.dense.mult.VectorVectorMult;
 import org.ejml.data.DenseMatrix64F;
 import org.ejml.ops.CommonOps;
 
+import com.fasterxml.jackson.annotation.JsonTypeName;
+
 /**
  * Online Passive-Aggressive on a budget 
  * reference: Zhuang Wang and Slobodan Vucetic
@@ -39,6 +41,7 @@ import org.ejml.ops.CommonOps;
  * 
  * @author      Simone Filice
  */
+@JsonTypeName("budgetedPA")
 public class BudgetedPassiveAggressiveClassification extends BudgetedLearningAlgorithm{
 
 	/**
