@@ -73,6 +73,10 @@ public class NystromMethodEnsemble extends ArrayList<NystromMethod> implements L
 		}
 	}
 
+	public NystromMethodEnsemble() {
+
+	}
+
 	/**
 	 * 
 	 */
