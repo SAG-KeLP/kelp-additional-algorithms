@@ -36,6 +36,7 @@ import it.uniroma2.sag.kelp.data.example.SimpleExample;
 import it.uniroma2.sag.kelp.data.representation.Representation;
 import it.uniroma2.sag.kelp.data.representation.Vector;
 import it.uniroma2.sag.kelp.data.representation.vector.DenseVector;
+import it.uniroma2.sag.kelp.kernel.Kernel;
 import it.uniroma2.sag.kelp.linearization.LinearizationFunction;
 import it.uniroma2.sag.kelp.utils.FileUtils;
 
@@ -57,6 +58,20 @@ import it.uniroma2.sag.kelp.utils.FileUtils;
 public class NystromMethodEnsemble extends ArrayList<NystromMethod> implements LinearizationFunction {
 
 	private Logger logger = LoggerFactory.getLogger(NystromMethodEnsemble.class);
+
+	/**
+	 * @param listOflandmarks
+	 *            The set of landmarks to build the projection functions based
+	 *            on the Nystorm Method
+	 * @param kernel
+	 *            The kernel functin
+	 * @throws InstantiationException
+	 */
+	public NystromMethodEnsemble(List<List<Example>> listOflandmarks, Kernel kernel) throws InstantiationException {
+		for (List<Example> landmarks : listOflandmarks) {
+			this.add(new NystromMethod(landmarks, kernel));
+		}
+	}
 
 	/**
 	 * 
