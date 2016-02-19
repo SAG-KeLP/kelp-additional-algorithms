@@ -62,9 +62,9 @@ public class NystromMethodEnsemble extends ArrayList<NystromMethod> implements L
 	/**
 	 * @param listOflandmarks
 	 *            The set of landmarks to build the projection functions based
-	 *            on the Nystorm Method
+	 *            on the Nystrom Method
 	 * @param kernel
-	 *            The kernel functin
+	 *            The kernel function
 	 * @throws InstantiationException
 	 */
 	public NystromMethodEnsemble(List<List<Example>> listOflandmarks, Kernel kernel) throws InstantiationException {
