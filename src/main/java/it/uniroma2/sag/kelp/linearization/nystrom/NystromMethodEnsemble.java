@@ -23,13 +23,20 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
 
+import it.uniroma2.sag.kelp.data.dataset.Dataset;
+import it.uniroma2.sag.kelp.data.dataset.SimpleDataset;
 import it.uniroma2.sag.kelp.data.example.Example;
 import it.uniroma2.sag.kelp.data.example.SimpleExample;
 import it.uniroma2.sag.kelp.data.representation.Representation;
+import it.uniroma2.sag.kelp.data.representation.Vector;
 import it.uniroma2.sag.kelp.data.representation.vector.DenseVector;
+import it.uniroma2.sag.kelp.linearization.LinearizationFunction;
 import it.uniroma2.sag.kelp.utils.FileUtils;
 
 /**
@@ -47,7 +54,9 @@ import it.uniroma2.sag.kelp.utils.FileUtils;
  * 
  * @author Danilo Croce
  */
-public class NystromMethodEnsemble extends ArrayList<NystromMethod> {
+public class NystromMethodEnsemble extends ArrayList<NystromMethod> implements LinearizationFunction {
+
+	private Logger logger = LoggerFactory.getLogger(NystromMethodEnsemble.class);
 
 	/**
 	 * 
@@ -120,9 +129,9 @@ public class NystromMethodEnsemble extends ArrayList<NystromMethod> {
 	}
 
 	/**
-	 * Given an example, this method produces a
-	 * <code>DenseVector</code> that is the concatenation of the vectors
-	 * obtained by each projection functions used in the Ensemble.
+	 * Given an example, this method produces a <code>DenseVector</code> that is
+	 * the concatenation of the vectors obtained by each projection functions
+	 * used in the Ensemble.
 	 * 
 	 * @param example
 	 *            the input example
@@ -143,10 +152,10 @@ public class NystromMethodEnsemble extends ArrayList<NystromMethod> {
 	}
 
 	/**
-	 * Given an example, this method produces a
-	 * <code>DenseVector</code> that is the concatenation of the vectors
-	 * obtained by each projection functions used in the Ensemble. Each vector
-	 * used in the concatenation is multiplied by a corresponding weight
+	 * Given an example, this method produces a <code>DenseVector</code> that is
+	 * the concatenation of the vectors obtained by each projection functions
+	 * used in the Ensemble. Each vector used in the concatenation is multiplied
+	 * by a corresponding weight
 	 * 
 	 * @param example
 	 *            The input example
@@ -190,6 +199,52 @@ public class NystromMethodEnsemble extends ArrayList<NystromMethod> {
 			ranks[i] = get(i).getRank();
 		}
 		return ranks;
+	}
+
+	@Override
+	public Vector getLinearRepresentation(Example example) {
+		try {
+			return getDenseVectorByEnsembleAndJuxtaposition(example);
+		} catch (InstantiationException e) {
+			e.printStackTrace();
+			return null;
+		}
+	}
+
+	@Override
+	public Example getLinearizedExample(Example example, String representationName) {
+
+		Vector denseVector = getLinearRepresentation(example);
+
+		HashMap<String, Representation> representations = new HashMap<String, Representation>();
+		representations.put(representationName, denseVector);
+
+		return new SimpleExample(example.getLabels(), representations);
+	}
+
+	@Override
+	public SimpleDataset getLinearizedDataset(Dataset dataset, String representationName) {
+		SimpleDataset resDataset = new SimpleDataset();
+
+		int count = 1;
+		for (Example e : dataset.getExamples()) {
+			resDataset.addExample(getLinearizedExample(e, representationName));
+			if (count % 100 == 0) {
+				logger.info("Projected " + count + " examples.");
+			}
+			count++;
+		}
+
+		return resDataset;
+	}
+
+	@Override
+	public int getEmbeddingSize() {
+		int res = 0;
+		for (NystromMethod nystromMethod : this) {
+			res += nystromMethod.getEmbeddingSize();
+		}
+		return res;
 	}
 
 }

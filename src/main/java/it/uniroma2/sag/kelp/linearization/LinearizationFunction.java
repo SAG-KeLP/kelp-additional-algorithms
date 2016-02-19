@@ -15,6 +15,8 @@
 
 package it.uniroma2.sag.kelp.linearization;
 
+import it.uniroma2.sag.kelp.data.dataset.Dataset;
+import it.uniroma2.sag.kelp.data.dataset.SimpleDataset;
 import it.uniroma2.sag.kelp.data.example.Example;
 import it.uniroma2.sag.kelp.data.representation.Vector;
 
@@ -37,5 +39,37 @@ public interface LinearizationFunction {
 	 * @return The linearized representation of the input example.
 	 */
 	public Vector getLinearRepresentation(Example example);
+
+	/**
+	 * This method linearizes an input example, providing a new example
+	 * containing only a representation with a specific name, provided as input.
+	 * The produced example inherits the labels of the input example.
+	 * 
+	 * @param example
+	 *            The input example.
+	 * @param vectorName
+	 *            The name of the linear representation inside the new example
+	 * @return
+	 */
+	public Example getLinearizedExample(Example example, String representationName);
+
+	/**
+	 * This method linearizes all the examples in the input <code>dataset</code>
+	 * , generating a corresponding linearized dataset. The produced examples
+	 * inherit the labels of the corresponding input examples.
+	 * 
+	 * @param dataset
+	 *            The input dataset
+	 * @param representationName
+	 *            The name of the linear representation inside the new examples
+	 * @return
+	 */
+	public SimpleDataset getLinearizedDataset(Dataset dataset, String representationName);
+
+	/**
+	 * @return the size of the resulting embedding, i.e. the number of resulting
+	 *         vector dimensions
+	 */
+	public int getEmbeddingSize();
 
 }

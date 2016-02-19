@@ -126,8 +126,8 @@ public class NystromMethod implements LinearizationFunction {
 	}
 
 	/**
-	 * Constructor of NystromMethod. The expected rank is automatically set to the size of 
-	 * <code>landmarks</code> 
+	 * Constructor of NystromMethod. The expected rank is automatically set to
+	 * the size of <code>landmarks</code>
 	 * 
 	 * @param landmarks
 	 *            The set of examples used as landmarks
@@ -302,17 +302,7 @@ public class NystromMethod implements LinearizationFunction {
 		return landmarks;
 	}
 
-	/**
-	 * This method linearizes all the examples in the input <code>dataset</code>,
-	 * generating a corresponding linearized dataset. The produced 
-	 * examples inherit the labels of the corresponding input examples.
-	 * 
-	 * @param dataset
-	 *            The input dataset
-	 * @param representationName
-	 *            The name of the linear representation inside the new examples
-	 * @return
-	 */
+	@Override
 	public SimpleDataset getLinearizedDataset(Dataset dataset, String representationName) {
 
 		SimpleDataset resDataset = new SimpleDataset();
@@ -329,17 +319,7 @@ public class NystromMethod implements LinearizationFunction {
 		return resDataset;
 	}
 
-	/**
-	 * This method linearizes an input example, providing a new example
-	 * containing only a representation with a specific name, provided as input.
-	 * The produced example inherits the labels of the input example.
-	 * 
-	 * @param example
-	 *            The input example.
-	 * @param vectorName
-	 *            The name of the linear representation inside the new example
-	 * @return
-	 */
+	@Override
 	public Example getLinearizedExample(Example example, String representationName) {
 		double[] projectedVector = calculateVector(example);
 		DenseVector denseVector = new DenseVector(projectedVector);
@@ -425,6 +405,11 @@ public class NystromMethod implements LinearizationFunction {
 	 */
 	public void setRank(int rank) {
 		this.rank = rank;
+	}
+
+	@Override
+	public int getEmbeddingSize() {
+		return landmarks.size();
 	}
 
 }
