@@ -324,6 +324,9 @@ public class DCDLearningAlgorithm implements LinearMethod,
 	 */
 	@Override
 	public void learn(Dataset dataset) {
+		
+		if(dataset.getNumberOfExamples()==0)
+			return;
 
 		if (isFairness() && cp == cn) {
 			float positiveExample = dataset.getNumberOfPositiveExamples(label);
