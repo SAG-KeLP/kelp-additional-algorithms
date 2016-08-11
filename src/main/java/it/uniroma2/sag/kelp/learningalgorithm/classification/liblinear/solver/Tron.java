@@ -151,13 +151,13 @@ public class Tron {
 	}
 
 	private void info(String msg) {
-		logger.info(msg);
+		logger.debug(msg);
 	}
 
 	private void info(String msgFormatted, Object... args) {
 //		Formatter formatter = new Formatter();
 //		Formatter format = formatter.format(msgFormatted, args);
-		logger.info(msgFormatted,args);
+		logger.debug(msgFormatted,args);
 //		formatter.close();
 	}
 
