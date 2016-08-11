@@ -109,7 +109,7 @@ Then, the [Maven][maven-site] dependency for the whole **KeLP** package:
 <dependency>
     <groupId>it.uniroma2.sag.kelp</groupId>
     <artifactId>kelp-additional-algorithms</artifactId>
-    <version>2.0.0</version>
+    <version>2.1.0</version>
 </dependency>
 ```
 
