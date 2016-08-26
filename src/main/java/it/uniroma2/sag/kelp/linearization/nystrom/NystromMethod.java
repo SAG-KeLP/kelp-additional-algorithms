@@ -256,8 +256,15 @@ public class NystromMethod implements LinearizationFunction {
 	 * @return the linearized representaton as array of double
 	 */
 	protected double[] calculateVector(Example example) {
-		int m = landmarks.size();
+		DenseMatrix64F projectedVector = getDenseMatrix64F(example);
 
+		return projectedVector.data;
+	}
+
+	private DenseMatrix64F getDenseMatrix64F(Example example) {
+		
+		int m = landmarks.size();
+		
 		if (USigmaSquare == null) {
 			USigmaSquare = new DenseMatrix64F(m, rank);
 			double[] data = new double[m * rank];
@@ -279,8 +286,7 @@ public class NystromMethod implements LinearizationFunction {
 		}
 
 		CommonOps.mult(kernelValuesToProject, USigmaSquare, projectedVector);
-
-		return projectedVector.data;
+		return projectedVector;
 	}
 
 	private void debug(String string) {
@@ -310,7 +316,7 @@ public class NystromMethod implements LinearizationFunction {
 		int count = 1;
 		for (Example e : dataset.getExamples()) {
 			resDataset.addExample(getLinearizedExample(e, representationName));
-			if (count % 100 == 0) {
+			if (count % 1000 == 0) {
 				info("Projected " + count + " examples.");
 			}
 			count++;
@@ -321,8 +327,8 @@ public class NystromMethod implements LinearizationFunction {
 
 	@Override
 	public Example getLinearizedExample(Example example, String representationName) {
-		double[] projectedVector = calculateVector(example);
-		DenseVector denseVector = new DenseVector(projectedVector);
+		DenseMatrix64F denseMatrix64F = getDenseMatrix64F(example);
+		DenseVector denseVector = new DenseVector(denseMatrix64F);
 
 		HashMap<String, Representation> representations = new HashMap<String, Representation>();
 		representations.put(representationName, denseVector);
