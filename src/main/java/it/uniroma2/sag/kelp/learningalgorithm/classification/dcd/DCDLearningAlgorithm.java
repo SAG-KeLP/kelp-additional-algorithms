@@ -335,17 +335,21 @@ public class DCDLearningAlgorithm implements LinearMethod,
 			cp = cn * negativeExample / positiveExample;
 		}
 
-		List<Example> vecs = dataset.getExamples();
-		float[] alpha = new float[vecs.size()];
-		float[] y = new float[vecs.size()];
+		List<Example> examples = dataset.getExamples();
+		float[] alpha = new float[examples.size()];
+		float[] y = new float[examples.size()];
 		float bias = 0;
-		double[] Qhs = new double[vecs.size()];// Q hats
+		double[] Qhs = new double[examples.size()];// Q hats
+		double[] invQhs = new double[examples.size()];// Q hats ^-1
 
-		double[] U = new double[vecs.size()];
-		double[] D = new double[vecs.size()];
+		double[] U = new double[examples.size()];
+		double[] D = new double[examples.size()];
+		
+		List<Vector> vecs= new ArrayList<Vector>();
+		
 
-		for (int i = 0; i < dataset.getNumberOfExamples(); i++) {
-			Example ei = dataset.getExamples().get(i);
+		for (int i = 0; i < examples.size(); i++) {
+			Example ei = examples.get(i);
 
 			y[i] = getY(ei);
 
@@ -353,12 +357,16 @@ public class DCDLearningAlgorithm implements LinearMethod,
 
 			D[i] = getD(ei);
 
-			Vector vecI = (Vector) dataset.getExamples().get(i)
+			Vector vecI = (Vector) examples.get(i)
 					.getRepresentation(representation);
+			
+			vecs.add(vecI);
 
 			Qhs[i] = vecI.innerProduct(vecI) + D[i];
 			if (useBias)
 				Qhs[i] += 1.0;
+			
+			invQhs[i] = 1 / Qhs[i];
 		}
 
 		if (this.getPredictionFunction().getModel().getHyperplane() == null) {
@@ -367,10 +375,6 @@ public class DCDLearningAlgorithm implements LinearMethod,
 		}
 
 		Vector w = this.getPredictionFunction().getModel().getHyperplane();
-
-		// Vector v0 = (Vector) dataset.getExamples().get(0)
-		// .getRepresentation(representation);
-		// Vector w = v0.getZeroVector();
 
 		List<Integer> A = new ArrayList<Integer>();
 		for (int i = 0; i < dataset.getNumberOfExamples(); i++) {
@@ -385,8 +389,7 @@ public class DCDLearningAlgorithm implements LinearMethod,
 
 			for (int i : A) {
 				// * Performs steps a, b, and c of the DCD algorithms 1 and 2
-				Vector vecI = (Vector) dataset.getExamples().get(i)
-						.getRepresentation(representation);
+				Vector vecI = vecs.get(i);
 
 				// a
 				final double G = y[i] * (w.innerProduct(vecI) + bias) - 1
@@ -403,7 +406,7 @@ public class DCDLearningAlgorithm implements LinearMethod,
 				if (PG != 0) {
 					float alphaOld = alpha[i];
 					alpha[i] = (float) Math.min(
-							Math.max(alpha[i] - G / Qhs[i], 0), U[i]);
+							Math.max(alpha[i] - G * invQhs[i], 0), U[i]);
 					float scale = (alpha[i] - alphaOld) * y[i];
 					w.add(scale, vecI);
 					if (useBias)
@@ -470,7 +473,7 @@ public class DCDLearningAlgorithm implements LinearMethod,
 	public void setLabels(List<Label> labels) {
 		if (labels.size() != 1) {
 			throw new IllegalArgumentException(
-					"LibLinear algorithm is a binary method which can learn a single Label");
+					"DCDLearningAlgorithm algorithm is a binary method which can learn a single Label");
 		} else {
 			this.label = labels.get(0);
 			this.classifier.setLabels(labels);
