@@ -345,9 +345,8 @@ public class DCDLearningAlgorithm implements LinearMethod,
 		double[] U = new double[examples.size()];
 		double[] D = new double[examples.size()];
 		
-		List<Vector> vecs= new ArrayList<Vector>();
+		Vector[] vecs= new Vector[examples.size()];
 		
-
 		for (int i = 0; i < examples.size(); i++) {
 			Example ei = examples.get(i);
 
@@ -360,7 +359,7 @@ public class DCDLearningAlgorithm implements LinearMethod,
 			Vector vecI = (Vector) examples.get(i)
 					.getRepresentation(representation);
 			
-			vecs.add(vecI);
+			vecs[i] = vecI;
 
 			Qhs[i] = vecI.innerProduct(vecI) + D[i];
 			if (useBias)
@@ -389,7 +388,7 @@ public class DCDLearningAlgorithm implements LinearMethod,
 
 			for (int i : A) {
 				// * Performs steps a, b, and c of the DCD algorithms 1 and 2
-				Vector vecI = vecs.get(i);
+				Vector vecI = vecs[i];
 
 				// a
 				final double G = y[i] * (w.innerProduct(vecI) + bias) - 1
