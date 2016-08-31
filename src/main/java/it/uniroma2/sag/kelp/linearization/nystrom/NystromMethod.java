@@ -266,10 +266,15 @@ public class NystromMethod implements LinearizationFunction {
 		int m = landmarks.size();
 		
 		if (USigmaSquare == null) {
-			USigmaSquare = new DenseMatrix64F(m, rank);
-			double[] data = new double[m * rank];
-			for (int i = 0; i < data.length; i++) {
-				data[i] = projectionMatrix.get(i);
+			USigmaSquare = new DenseMatrix64F(m, m);
+			double[] data = new double[m * m];
+			int origId=0;
+			int arrayId=0;
+			for (int r = 0; r < m; r++) {
+				for(int j=0; j<rank; j++)
+					data[arrayId++] = projectionMatrix.get(origId++);
+				for(int j=rank; j<m; j++)
+					data[arrayId++] = 0;
 			}
 			USigmaSquare.setData(data);
 		}
@@ -278,7 +283,7 @@ public class NystromMethod implements LinearizationFunction {
 			kernelValuesToProject = new DenseMatrix64F(1, m);
 		}
 
-		DenseMatrix64F projectedVector = new DenseMatrix64F(1, rank);
+		DenseMatrix64F projectedVector = new DenseMatrix64F(1, m);
 
 		for (int j = 0; j < m; j++) {
 			float k = this.kernel.innerProduct(example, landmarks.get(j));
