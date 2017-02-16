@@ -14,6 +14,8 @@ In Batch Learning, the complete training dataset is supposed to be entirely avai
 
 Moreover this project defines **LinearizationFunction** that can be used to approximate kernel spaces so projecting (potentially structured) examples into linear representations, i.e. vectors.
 
+Finally, this project implements learning method for the estiation of classification functions operating over sequences of examples: in this **Sequential Labeling Paradigm** the classification of an example from a sequence depends on the classes assigned to the previous one(s).
+
 Examples about the usage of the following algorithms, please refer to the project **kelp-full**.
 
 Batch Learning algorithms
@@ -55,11 +57,29 @@ The following online learning algorithms are implemented:
 * **MultiEpochLearning**: a meta algorithm for performing multiple iterations on a training data
 * **Stoptron**: an extension of the Stoptron algorithm proposed in (Orabona '08)
 
-LinearizationFunctions
+Linearization Functions
 --------------------------
 The following linearization functions have been implemented:
 
 * **NystromMethod**: a linearization function based on the Nystrom Method (Williams '01) on the notion of approximation of the Gram Matrix underlying a kernel function. The application of the Nystrom method (Croce '16).
+
+Learning Algorithm over Sequences
+--------------------------------
+
+KeLP also implements a sequential labeling paradigm. Given sequences of items (each implemented as an example and
+associated to one Label) this classes allow to apply a generic
+Learning Algorithm to use the "history" of each item in the
+sequence in order to improve the classification quality. In other words, the
+classification of each example does not depend only its representation, but
+it also depend on its "history", in terms of the classed assigned to the
+preceding examples.
+
+In particular:
+
+* <code>SequenceClassificationLinearLearningAlgorithm</code>: This class should be used when a **linear learning algorithm** is used, thus directly operating in the representation space. 
+
+* <code>SequenceClassificationKernelBasedLearningAlgorithm</code>: This class should be used when a **kernel-based learning algorithm** is used, thus directly operating in the implicit space underlying a kernel function.
+
 
   
 =============
