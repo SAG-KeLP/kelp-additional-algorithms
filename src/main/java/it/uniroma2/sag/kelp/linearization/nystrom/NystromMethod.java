@@ -338,7 +338,9 @@ public class NystromMethod implements LinearizationFunction {
 		HashMap<String, Representation> representations = new HashMap<String, Representation>();
 		representations.put(representationName, denseVector);
 
-		return new SimpleExample(example.getLabels(), representations);
+		Example res = new SimpleExample(example.getLabels(), representations);
+		res.setRegressionValues(example.getRegressionValues());
+		return res;
 	}
 
 	@Override
