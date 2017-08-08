@@ -1,0 +1,8 @@
+<component name="ArtifactManager">
+  <artifact type="jar" name="kelp-additional-algorithms:jar">
+    <output-path>$PROJECT_DIR$/../jars/</output-path>
+    <root id="archive" name="kelp-additional-algorithms.jar">
+      <element id="module-output" name="kelp-additional-algorithms" />
+    </root>
+  </artifact>
+</component>
