@@ -32,7 +32,7 @@ import it.uniroma2.sag.kelp.predictionfunction.SequencePrediction;
  * 
  * @author Danilo Croce
  */
-public class MulticlassSequenceClassificationEvaluator extends MulticlassClassificationEvaluator {
+public class MulticlassSequenceClassificationEvaluator extends MulticlassClassificationEvaluator{
 
 	/**
 	 * Initialize a new F1Evaluator that will work on the specified classes
@@ -65,14 +65,33 @@ public class MulticlassSequenceClassificationEvaluator extends MulticlassClassif
 			Example testItem = test.getExample(seqIdx);
 			SequenceEmission sequenceLabel = bestPath.getAssignedSequnceLabels().get(seqIdx);
 
-			for (Label l : testItem.getClassificationLabels()) {
-				super.toBePredictedCounter.put(l, toBePredictedCounter.get(l) + 1);
-				total++;
+			for (Label l : this.labels) {
+				ClassStats stats = this.classStats.get(l);
+				if(testItem.isExampleOf(l)){
+					if(sequenceLabel.getLabel().equals(l)){
+						stats.tp++;
+						totalTp++;
+					}else{
+						stats.fn++;
+						totalFn++;						
+					}
+				}else{
+					if(sequenceLabel.getLabel().equals(l)){
+						stats.fp++;
+						totalFp++;
+					}else{
+						stats.tn++;
+						totalTn++;						
+					}
+				}
+				
 			}
-			Label p = sequenceLabel.getLabel();
-			predictedCounter.put(p, predictedCounter.get(p) + 1);
-			if (testItem.isExampleOf(p)) {
-				correctCounter.put(p, correctCounter.get(p) + 1);
+			
+			//TODO: check (i) e' giusto valutare l'accuracy dei singoli elementi della sequenza e non della sequenza completa
+			//(ii) va considerato il caso multilabel
+			total++;
+			
+			if (testItem.isExampleOf(sequenceLabel.getLabel())) {
 				correct++;
 			}
 
