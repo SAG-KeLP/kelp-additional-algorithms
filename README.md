@@ -202,7 +202,7 @@ References
 Usefull Links
 -------------
 
-KeLP site: [http://sag.art.uniroma2.it/demo-software/kelp/][kelp-site]
+KeLP site: [http://www.kelp-ml.org][kelp-site]
 
 SAG site: [http://sag.art.uniroma2.it][sag-site]
 
@@ -210,7 +210,7 @@ Source code hosted at GitHub: [https://github.com/SAG-KeLP][github]
 
 [sag-site]: http://sag.art.uniroma2.it "SAG site"
 [uniroma2-site]: http://www.uniroma2.it "University of Roma Tor Vergata"
-[kelp-site]: http://sag.art.uniroma2.it/demo-software/kelp/
+[kelp-site]: http://www.kelp-ml.org
 [liblinear-site]: http://www.csie.ntu.edu.tw/~cjlin/liblinear
 [porting-site]: http://liblinear.bwaldvogel.de
 [libsvm-site]: http://www.csie.ntu.edu.tw/~cjlin/libsvm/
