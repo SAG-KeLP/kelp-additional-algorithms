@@ -111,7 +111,7 @@ public class LibLinearDenseVsSparseClassificationEvaluator {
 			sparseScores.add(predict.getScore(l));
 		}
 
-		return evaluator.getMeanF1();
+		return evaluator.getMacroF1();
 	}
 
 	private static float testDense(SimpleDataset trainingSet, float c,
@@ -138,7 +138,7 @@ public class LibLinearDenseVsSparseClassificationEvaluator {
 			denseScores.add(predict.getScore(l));
 		}
 
-		return evaluator.getMeanF1();
+		return evaluator.getMacroF1();
 	}
 
 }
