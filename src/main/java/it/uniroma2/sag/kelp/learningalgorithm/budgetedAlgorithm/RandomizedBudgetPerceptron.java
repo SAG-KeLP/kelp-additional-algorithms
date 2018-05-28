@@ -143,4 +143,9 @@ public class RandomizedBudgetPerceptron extends BudgetedLearningAlgorithm implem
 		return this.baseAlgorithm.learn(example);
 	}
 
+	@Override
+	public void setPredictionFunction(PredictionFunction predictionFunction) {
+		this.baseAlgorithm.setPredictionFunction(predictionFunction);		
+	}
+
 }

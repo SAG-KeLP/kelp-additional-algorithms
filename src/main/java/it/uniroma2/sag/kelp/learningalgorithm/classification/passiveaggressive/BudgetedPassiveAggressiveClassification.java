@@ -21,6 +21,7 @@ import it.uniroma2.sag.kelp.data.label.Label;
 import it.uniroma2.sag.kelp.kernel.Kernel;
 import it.uniroma2.sag.kelp.learningalgorithm.LearningAlgorithm;
 import it.uniroma2.sag.kelp.learningalgorithm.budgetedAlgorithm.BudgetedLearningAlgorithm;
+import it.uniroma2.sag.kelp.predictionfunction.PredictionFunction;
 import it.uniroma2.sag.kelp.predictionfunction.classifier.BinaryKernelMachineClassifier;
 import it.uniroma2.sag.kelp.predictionfunction.classifier.BinaryMarginClassifierOutput;
 import it.uniroma2.sag.kelp.predictionfunction.model.BinaryKernelMachineModel;
@@ -556,5 +557,9 @@ public class BudgetedPassiveAggressiveClassification extends BudgetedLearningAlg
 
 	}
 
+	@Override
+	public void setPredictionFunction(PredictionFunction predictionFunction) {
+		this.classifier = (BinaryKernelMachineClassifier) predictionFunction;		
+	}
 
 }

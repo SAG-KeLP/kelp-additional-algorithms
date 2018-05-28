@@ -19,6 +19,7 @@ package it.uniroma2.sag.kelp.learningalgorithm.classification.perceptron;
 import it.uniroma2.sag.kelp.data.label.Label;
 import it.uniroma2.sag.kelp.kernel.Kernel;
 import it.uniroma2.sag.kelp.learningalgorithm.KernelMethod;
+import it.uniroma2.sag.kelp.predictionfunction.PredictionFunction;
 import it.uniroma2.sag.kelp.predictionfunction.classifier.BinaryKernelMachineClassifier;
 import it.uniroma2.sag.kelp.predictionfunction.model.BinaryKernelMachineModel;
 
@@ -78,6 +79,9 @@ public class KernelizedPerceptron extends Perceptron implements KernelMethod{
 		return (BinaryKernelMachineClassifier) this.classifier;
 	}
 
-
+	@Override
+	public void setPredictionFunction(PredictionFunction predictionFunction) {
+		this.classifier = (BinaryKernelMachineClassifier) predictionFunction;		
+	}
 	
 }

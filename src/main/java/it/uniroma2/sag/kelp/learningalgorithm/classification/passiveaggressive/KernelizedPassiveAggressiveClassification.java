@@ -16,13 +16,14 @@
 package it.uniroma2.sag.kelp.learningalgorithm.classification.passiveaggressive;
 
 
+import com.fasterxml.jackson.annotation.JsonTypeName;
+
 import it.uniroma2.sag.kelp.data.label.Label;
 import it.uniroma2.sag.kelp.kernel.Kernel;
 import it.uniroma2.sag.kelp.learningalgorithm.KernelMethod;
+import it.uniroma2.sag.kelp.predictionfunction.PredictionFunction;
 import it.uniroma2.sag.kelp.predictionfunction.classifier.BinaryKernelMachineClassifier;
 import it.uniroma2.sag.kelp.predictionfunction.model.BinaryKernelMachineModel;
-
-import com.fasterxml.jackson.annotation.JsonTypeName;
 
 /**
  * Online Passive-Aggressive Learning Algorithm for classification tasks (Kernel Machine version) .
@@ -92,6 +93,11 @@ public class KernelizedPassiveAggressiveClassification extends PassiveAggressive
 	@Override
 	public BinaryKernelMachineClassifier getPredictionFunction(){
 		return (BinaryKernelMachineClassifier) this.classifier;
+	}
+	
+	@Override
+	public void setPredictionFunction(PredictionFunction predictionFunction) {
+		this.classifier = (BinaryKernelMachineClassifier) predictionFunction;		
 	}
 	
 }

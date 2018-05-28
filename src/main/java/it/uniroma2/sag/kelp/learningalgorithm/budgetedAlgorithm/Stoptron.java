@@ -105,5 +105,10 @@ public class Stoptron extends BudgetedLearningAlgorithm implements MetaLearningA
 	protected Prediction predictAndLearnWithAvailableBudget(Example example) {
 		return this.baseAlgorithm.learn(example);
 	}
+	
+	@Override
+	public void setPredictionFunction(PredictionFunction predictionFunction) {
+		this.baseAlgorithm.setPredictionFunction(predictionFunction);		
+	}
 
 }

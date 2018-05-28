@@ -19,6 +19,7 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
 
 import it.uniroma2.sag.kelp.data.label.Label;
 import it.uniroma2.sag.kelp.learningalgorithm.LinearMethod;
+import it.uniroma2.sag.kelp.predictionfunction.PredictionFunction;
 import it.uniroma2.sag.kelp.predictionfunction.model.BinaryLinearModel;
 import it.uniroma2.sag.kelp.predictionfunction.regressionfunction.UnivariateLinearRegressionFunction;
 
@@ -79,6 +80,11 @@ public class LinearPassiveAggressiveRegression extends PassiveAggressiveRegressi
 	@Override
 	public UnivariateLinearRegressionFunction getPredictionFunction(){
 		return (UnivariateLinearRegressionFunction) this.regressor;
+	}
+	
+	@Override
+	public void setPredictionFunction(PredictionFunction predictionFunction) {
+		this.regressor = (UnivariateLinearRegressionFunction) predictionFunction;
 	}
 	
 }

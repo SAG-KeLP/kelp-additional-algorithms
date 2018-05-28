@@ -20,6 +20,7 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
 import it.uniroma2.sag.kelp.data.label.Label;
 import it.uniroma2.sag.kelp.kernel.Kernel;
 import it.uniroma2.sag.kelp.learningalgorithm.KernelMethod;
+import it.uniroma2.sag.kelp.predictionfunction.PredictionFunction;
 import it.uniroma2.sag.kelp.predictionfunction.regressionfunction.UnivariateKernelMachineRegressionFunction;
 
 /**
@@ -74,6 +75,11 @@ public class KernelizedPassiveAggressiveRegression extends PassiveAggressiveRegr
 	@Override
 	public UnivariateKernelMachineRegressionFunction getPredictionFunction(){
 		return (UnivariateKernelMachineRegressionFunction) this.regressor;
+	}
+	
+	@Override
+	public void setPredictionFunction(PredictionFunction predictionFunction) {
+		this.regressor = (UnivariateKernelMachineRegressionFunction) predictionFunction;
 	}
 
 }

@@ -22,6 +22,7 @@ import it.uniroma2.sag.kelp.data.representation.Vector;
 import it.uniroma2.sag.kelp.learningalgorithm.BinaryLearningAlgorithm;
 import it.uniroma2.sag.kelp.learningalgorithm.LinearMethod;
 import it.uniroma2.sag.kelp.learningalgorithm.classification.ClassificationLearningAlgorithm;
+import it.uniroma2.sag.kelp.predictionfunction.PredictionFunction;
 import it.uniroma2.sag.kelp.predictionfunction.classifier.BinaryLinearClassifier;
 import it.uniroma2.sag.kelp.predictionfunction.model.BinaryLinearModel;
 
@@ -503,6 +504,11 @@ public class DCDLearningAlgorithm implements LinearMethod,
 
 	public void setUseBias(boolean useBias) {
 		this.useBias = useBias;
+	}
+
+	@Override
+	public void setPredictionFunction(PredictionFunction predictionFunction) {
+		this.classifier = (BinaryLinearClassifier) predictionFunction;	
 	}
 
 }
