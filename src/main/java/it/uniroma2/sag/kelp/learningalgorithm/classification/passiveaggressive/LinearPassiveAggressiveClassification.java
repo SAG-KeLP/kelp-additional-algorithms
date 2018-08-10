@@ -17,6 +17,7 @@ package it.uniroma2.sag.kelp.learningalgorithm.classification.passiveaggressive;
 
 import it.uniroma2.sag.kelp.data.label.Label;
 import it.uniroma2.sag.kelp.learningalgorithm.LinearMethod;
+import it.uniroma2.sag.kelp.predictionfunction.PredictionFunction;
 import it.uniroma2.sag.kelp.predictionfunction.classifier.BinaryLinearClassifier;
 import it.uniroma2.sag.kelp.predictionfunction.model.BinaryLinearModel;
 
@@ -87,6 +88,11 @@ public class LinearPassiveAggressiveClassification extends PassiveAggressiveClas
 	@Override
 	public BinaryLinearClassifier getPredictionFunction(){
 		return (BinaryLinearClassifier) this.classifier;
+	}
+	
+	@Override
+	public void setPredictionFunction(PredictionFunction predictionFunction) {
+		this.classifier = (BinaryLinearClassifier) predictionFunction;		
 	}
 
 }

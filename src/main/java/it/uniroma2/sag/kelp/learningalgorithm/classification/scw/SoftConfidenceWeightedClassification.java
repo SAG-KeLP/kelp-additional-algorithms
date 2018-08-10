@@ -15,18 +15,6 @@
 
 package it.uniroma2.sag.kelp.learningalgorithm.classification.scw;
 
-import it.uniroma2.sag.kelp.data.dataset.Dataset;
-import it.uniroma2.sag.kelp.data.example.Example;
-import it.uniroma2.sag.kelp.data.label.Label;
-import it.uniroma2.sag.kelp.data.representation.Vector;
-import it.uniroma2.sag.kelp.learningalgorithm.BinaryLearningAlgorithm;
-import it.uniroma2.sag.kelp.learningalgorithm.LinearMethod;
-import it.uniroma2.sag.kelp.learningalgorithm.OnlineLearningAlgorithm;
-import it.uniroma2.sag.kelp.predictionfunction.classifier.BinaryClassifier;
-import it.uniroma2.sag.kelp.predictionfunction.classifier.BinaryLinearClassifier;
-import it.uniroma2.sag.kelp.predictionfunction.classifier.BinaryMarginClassifierOutput;
-import it.uniroma2.sag.kelp.predictionfunction.model.BinaryLinearModel;
-
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
@@ -35,6 +23,19 @@ import org.apache.commons.math3.distribution.NormalDistribution;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonTypeName;
+
+import it.uniroma2.sag.kelp.data.dataset.Dataset;
+import it.uniroma2.sag.kelp.data.example.Example;
+import it.uniroma2.sag.kelp.data.label.Label;
+import it.uniroma2.sag.kelp.data.representation.Vector;
+import it.uniroma2.sag.kelp.learningalgorithm.BinaryLearningAlgorithm;
+import it.uniroma2.sag.kelp.learningalgorithm.LinearMethod;
+import it.uniroma2.sag.kelp.learningalgorithm.OnlineLearningAlgorithm;
+import it.uniroma2.sag.kelp.predictionfunction.PredictionFunction;
+import it.uniroma2.sag.kelp.predictionfunction.classifier.BinaryClassifier;
+import it.uniroma2.sag.kelp.predictionfunction.classifier.BinaryLinearClassifier;
+import it.uniroma2.sag.kelp.predictionfunction.classifier.BinaryMarginClassifierOutput;
+import it.uniroma2.sag.kelp.predictionfunction.model.BinaryLinearModel;
 
 /**
  * Implements Exact Soft Confidence-Weighted (SCW) algorithms, an on-line
@@ -484,6 +485,11 @@ public class SoftConfidenceWeightedClassification implements
 	 */
 	public void setScwType(SCWType scwType) {
 		this.scwType = scwType;
+	}
+	
+	@Override
+	public void setPredictionFunction(PredictionFunction predictionFunction) {
+		this.classifier = (BinaryLinearClassifier) predictionFunction;		
 	}
 
 }

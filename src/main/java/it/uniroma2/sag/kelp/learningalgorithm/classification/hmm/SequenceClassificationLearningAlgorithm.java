@@ -230,5 +230,11 @@ public abstract class SequenceClassificationLearningAlgorithm implements Learnin
 	public void setSequenceExampleGenerator(SequenceExampleGenerator sequenceExampleGenerator) {
 		this.sequenceExampleGenerator = sequenceExampleGenerator;
 	}
+	
+	@Override
+	public void setPredictionFunction(PredictionFunction predictionFunction) {
+		this.sequencePredictionFunction = (SequencePredictionFunction) predictionFunction;
+		this.baseLearningAlgorithm.setPredictionFunction(this.sequencePredictionFunction.getModel().getBasePredictionFunction());
+	}
 
 }

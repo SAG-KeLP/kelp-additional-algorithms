@@ -15,6 +15,12 @@
 
 package it.uniroma2.sag.kelp.learningalgorithm.classification.pegasos;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
+import com.fasterxml.jackson.annotation.JsonTypeName;
+
 import it.uniroma2.sag.kelp.data.dataset.Dataset;
 import it.uniroma2.sag.kelp.data.example.Example;
 import it.uniroma2.sag.kelp.data.label.Label;
@@ -22,15 +28,10 @@ import it.uniroma2.sag.kelp.data.representation.Vector;
 import it.uniroma2.sag.kelp.learningalgorithm.BinaryLearningAlgorithm;
 import it.uniroma2.sag.kelp.learningalgorithm.LinearMethod;
 import it.uniroma2.sag.kelp.learningalgorithm.classification.ClassificationLearningAlgorithm;
+import it.uniroma2.sag.kelp.predictionfunction.PredictionFunction;
 import it.uniroma2.sag.kelp.predictionfunction.classifier.BinaryLinearClassifier;
 import it.uniroma2.sag.kelp.predictionfunction.classifier.BinaryMarginClassifierOutput;
 import it.uniroma2.sag.kelp.predictionfunction.model.BinaryLinearModel;
-
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-
-import com.fasterxml.jackson.annotation.JsonTypeName;
 
 /**
  * It implements the Primal Estimated sub-GrAdient SOlver (PEGASOS) for SVM. It is a learning
@@ -230,5 +231,10 @@ public class PegasosLearningAlgorithm implements LinearMethod, ClassificationLea
 	@Override
 	public void setLabel(Label label){
 		this.setLabels(Arrays.asList(label));
+	}
+	
+	@Override
+	public void setPredictionFunction(PredictionFunction predictionFunction) {
+		this.classifier = (BinaryLinearClassifier) predictionFunction;		
 	}
 }

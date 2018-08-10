@@ -25,6 +25,7 @@ import it.uniroma2.sag.kelp.learningalgorithm.classification.liblinear.solver.L2
 import it.uniroma2.sag.kelp.learningalgorithm.classification.liblinear.solver.Problem;
 import it.uniroma2.sag.kelp.learningalgorithm.classification.liblinear.solver.Problem.LibLinearSolverType;
 import it.uniroma2.sag.kelp.learningalgorithm.classification.liblinear.solver.Tron;
+import it.uniroma2.sag.kelp.predictionfunction.PredictionFunction;
 import it.uniroma2.sag.kelp.predictionfunction.classifier.BinaryLinearClassifier;
 import it.uniroma2.sag.kelp.predictionfunction.model.BinaryLinearModel;
 
@@ -366,6 +367,11 @@ public class LibLinearLearningAlgorithm implements LinearMethod,
 	@Override
 	public BinaryLinearClassifier getPredictionFunction() {
 		return this.classifier;
+	}
+
+	@Override
+	public void setPredictionFunction(PredictionFunction predictionFunction) {
+		this.classifier = (BinaryLinearClassifier) predictionFunction;		
 	}
 
 }

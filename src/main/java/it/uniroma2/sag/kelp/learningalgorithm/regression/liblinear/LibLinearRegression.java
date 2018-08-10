@@ -25,6 +25,7 @@ import it.uniroma2.sag.kelp.learningalgorithm.classification.liblinear.solver.Pr
 import it.uniroma2.sag.kelp.learningalgorithm.classification.liblinear.solver.Problem.LibLinearSolverType;
 import it.uniroma2.sag.kelp.learningalgorithm.classification.liblinear.solver.Tron;
 import it.uniroma2.sag.kelp.learningalgorithm.regression.RegressionLearningAlgorithm;
+import it.uniroma2.sag.kelp.predictionfunction.PredictionFunction;
 import it.uniroma2.sag.kelp.predictionfunction.model.BinaryLinearModel;
 import it.uniroma2.sag.kelp.predictionfunction.regressionfunction.UnivariateLinearRegressionFunction;
 
@@ -293,6 +294,11 @@ public class LibLinearRegression implements LinearMethod,
 	@Override
 	public UnivariateLinearRegressionFunction getPredictionFunction() {
 		return regressionFunction;
+	}
+
+	@Override
+	public void setPredictionFunction(PredictionFunction predictionFunction) {
+		this.regressionFunction = (UnivariateLinearRegressionFunction) predictionFunction;
 	}
 
 }

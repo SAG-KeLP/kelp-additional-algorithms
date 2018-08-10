@@ -16,12 +16,13 @@
 package it.uniroma2.sag.kelp.learningalgorithm.classification.perceptron;
 
 
+import com.fasterxml.jackson.annotation.JsonTypeName;
+
 import it.uniroma2.sag.kelp.data.label.Label;
 import it.uniroma2.sag.kelp.learningalgorithm.LinearMethod;
+import it.uniroma2.sag.kelp.predictionfunction.PredictionFunction;
 import it.uniroma2.sag.kelp.predictionfunction.classifier.BinaryLinearClassifier;
 import it.uniroma2.sag.kelp.predictionfunction.model.BinaryLinearModel;
-
-import com.fasterxml.jackson.annotation.JsonTypeName;
 
 /**
  * The perceptron learning algorithm algorithm for classification tasks (linear version). Reference:
@@ -77,6 +78,11 @@ public class LinearPerceptron extends Perceptron implements LinearMethod{
 	@Override
 	public BinaryLinearClassifier getPredictionFunction(){
 		return (BinaryLinearClassifier) this.classifier;
+	}
+	
+	@Override
+	public void setPredictionFunction(PredictionFunction predictionFunction) {
+		this.classifier = (BinaryLinearClassifier) predictionFunction;		
 	}
 
 }

@@ -115,6 +115,11 @@ public class MultiEpochLearning implements MetaLearningAlgorithm{
 		return this.baseAlgorithm.getPredictionFunction();
 	}
 
+	@Override
+	public void setPredictionFunction(PredictionFunction predictionFunction) {
+		this.baseAlgorithm.setPredictionFunction(predictionFunction);		
+	}
+
 
 
 }
