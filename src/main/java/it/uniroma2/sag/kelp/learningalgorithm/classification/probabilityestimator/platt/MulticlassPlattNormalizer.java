@@ -16,7 +16,7 @@ public class MulticlassPlattNormalizer {
 		binaryPlattNormalizers.put(label, binaryPlattNormalizer);
 	}
 
-	public OneVsAllClassificationOutput getNormlizedScores(OneVsAllClassificationOutput oneVsAllClassificationOutput) {
+	public OneVsAllClassificationOutput getNormalizedScores(OneVsAllClassificationOutput oneVsAllClassificationOutput) {
 		OneVsAllClassificationOutput res = new OneVsAllClassificationOutput();
 
 		for (Label l : oneVsAllClassificationOutput.getAllClasses()) {

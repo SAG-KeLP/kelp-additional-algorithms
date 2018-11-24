@@ -43,7 +43,7 @@ public class BinaryPlattNormalizer {
 		return "PlattSigmoidFunction [A=" + A + ", B=" + B + "]";
 	}
 
-	public BinaryMarginClassifierOutput getNormlizedScore(BinaryMarginClassifierOutput binaryMarginClassifierOutput) {
+	public BinaryMarginClassifierOutput getNormalizedScore(BinaryMarginClassifierOutput binaryMarginClassifierOutput) {
 
 		Label positiveLabel = binaryMarginClassifierOutput.getAllClasses().get(0);
 
