@@ -19,6 +19,8 @@ import it.uniroma2.sag.kelp.data.example.Example;
 import it.uniroma2.sag.kelp.data.example.SequenceExample;
 import it.uniroma2.sag.kelp.data.example.SequencePath;
 
+import java.io.Serializable;
+
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import com.fasterxml.jackson.databind.annotation.JsonTypeIdResolver;
 
@@ -36,7 +38,7 @@ import com.fasterxml.jackson.databind.annotation.JsonTypeIdResolver;
  */
 @JsonTypeInfo(use = JsonTypeInfo.Id.CUSTOM, include = JsonTypeInfo.As.PROPERTY, property = "sequenceExamplesGeneratorType")
 @JsonTypeIdResolver(SequenceExampleGeneratorTypeResolver.class)
-public interface SequenceExampleGenerator {
+public interface SequenceExampleGenerator extends Serializable{
 
 	/**
 	 * At labeling time, this method allows to enrich a specific

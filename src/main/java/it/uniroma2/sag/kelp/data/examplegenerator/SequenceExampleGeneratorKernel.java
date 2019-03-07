@@ -52,6 +52,11 @@ import it.uniroma2.sag.kelp.data.representation.vector.SparseVector;
 @JsonTypeName("se_gen_kb")
 public class SequenceExampleGeneratorKernel implements SequenceExampleGenerator {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -6307705638697955450L;
+
 	private String transitionRepresentationName;
 
 	private int transitionsOrder;

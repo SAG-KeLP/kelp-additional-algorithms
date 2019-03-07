@@ -51,6 +51,11 @@ import it.uniroma2.sag.kelp.data.representation.vector.SparseVector;
 public class SequenceExampleGeneratorLinear implements SequenceExampleGenerator {
 
 	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -6889374446991783357L;
+
+	/**
 	 * The identifier of the representation used to represent an example in the
 	 * sequence and which will be enriched
 	 */
