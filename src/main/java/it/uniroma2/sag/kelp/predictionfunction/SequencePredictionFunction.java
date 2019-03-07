@@ -46,6 +46,11 @@ import it.uniroma2.sag.kelp.predictionfunction.model.SequenceModel;
 public class SequencePredictionFunction implements PredictionFunction {
 
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1007864099644753892L;
+
 	public static final int DEFAULT_MAX_EMISSION_CAND = 5;
 
 	public static final int DEFAULT_BEAM_SIZE = 20;

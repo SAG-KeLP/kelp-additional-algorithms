@@ -28,6 +28,11 @@ import it.uniroma2.sag.kelp.predictionfunction.PredictionFunction;
 public class SequenceModel implements Model {
 
 	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -2749198158786953940L;
+
+	/**
 	 * The prediction function producing the emission scores to be considered in
 	 * the Viterbi Decoding
 	 */
