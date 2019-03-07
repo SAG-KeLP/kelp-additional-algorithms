@@ -41,7 +41,7 @@ import it.uniroma2.sag.kelp.predictionfunction.SequencePredictionFunction;
 
 public class SequenceLearningLinearTest {
 
-	private static final Float TOLERANCE = 0f;
+	private static final Float TOLERANCE = 0.001f;
 
 	public static void main(String[] args) throws Exception {
 
