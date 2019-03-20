@@ -421,6 +421,7 @@ public class NystromMethod implements LinearizationFunction {
 	}
 
 	@Override
+	@JsonIgnore
 	public int getEmbeddingSize() {
 		return landmarks.size();
 	}
