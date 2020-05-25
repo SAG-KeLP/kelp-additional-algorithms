@@ -34,6 +34,10 @@ import it.uniroma2.sag.kelp.predictionfunction.Prediction;
 public class SequencePrediction implements Prediction {
 
 	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -1040539866977906008L;
+	/**
 	 * This list contains multiple labelings to be assigned to a single sequence
 	 */
 	private List<SequencePath> paths;
